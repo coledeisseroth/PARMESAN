@@ -1,0 +1,6 @@
+#for entrez in $(cat ../../../../../abstracts/genes/udn/udn_entrez_mentioned.txt | cut -f2 | sort -u); do for i in $(seq 0 100); do cat ../pergene/$entrez | awk 'sqrt($3 ^ 2) > '$i | wc -l; done | paste -sd$'\t' | awk '{print "'$entrez'\t" $0}'; done > gene_threshold_predictioncount.txt
+#(echo -n $'Minimum_score\t'; cat ../../../../../abstracts/genes/udn/udn_entrez_mentioned.txt | cut -f2 | sort -u | paste -sd$'\t'; for i in $(seq 0 100); do for entrez in $(cat ../../../../../abstracts/genes/udn/udn_entrez_mentioned.txt | cut -f2 | sort -u); do cat ../pergene/$entrez | awk 'sqrt($3 ^ 2) > '$i | wc -l; done | paste -sd$'\t' | awk '{print "'$i'\t" $0}'; done) > gene_threshold_predictioncount.txt
+
+(echo -n $'Minimum_score\tGene_count\t'; cat ../../../../../abstracts/genes/udn/udn_entrez_mentioned.txt | cut -f2 | sort -u | paste -sd$'\t'; for i in $(seq 0 100); do for entrez in $(cat ../../../../../abstracts/genes/udn/udn_entrez_mentioned.txt | cut -f2 | sort -u); do cat ../pergene/$entrez | awk 'sqrt($3 ^ 2) > '$i | wc -l; done | paste -sd$'\t' | awk 'BEGIN {FS = "\t"} {count=0; for(i = 1; i <= NF; i += 1){if($i > 0){count += 1}} print "'$i'\t" count "\t" $0}'; done) > gene_threshold_predictioncount.txt
+
+

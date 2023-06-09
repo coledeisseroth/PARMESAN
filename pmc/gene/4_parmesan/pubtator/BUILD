@@ -1,0 +1,5 @@
+zcat ../../../../ground_truth/pubtator/genes/gene2pubtatorcentral.gz | cut -f1,3,4 | sort -k1,1 | join -t$'\t' - <(cat ../summaries.txt | cut -f1 | sort -u) | awk 'BEGIN {FS = "\t"} $3 != "" && $2 != "None"' | sed 's/|/\t/g' | awk 'BEGIN {FS = "\t"} {for(i = 3; i <= NF; i++){print $1 "\t" $2 "\t" $3}}' | awk 'BEGIN {FS = "\t"} {gsub(";", "\t", $2); print $1 "\t" $3 "\t" $2}' | awk 'BEGIN {FS = "\t"} {for(i = 3; i <= NF; i++){print $1 "\t" $i "\t" $2}}' > relevant_pubtator_genes.txt
+
+#Compile the output of the split scripts
+cat ../summaries.txt | awk 'BEGIN {FS = "\t"} {print $1 "_" tolower($2) "\t" $1 "_" tolower($5) "\t" $0}' | sort -t$'\t' -k1,1 | join -a 1 -o auto -t$'\t' - <(cat relevant_pubtator_genes.txt | awk 'BEGIN {FS = "\t"} {print $1 "_" tolower($3) "\t" $2}' | sort -t$'\t' -k1,1) | sort -t$'\t' -k2,2 | join -a 1 -o auto -t$'\t' -1 2 -2 1 - <(cat relevant_pubtator_genes.txt | awk 'BEGIN {FS = "\t"} {print $1 "_" tolower($3) "\t" $2}' | sort -t$'\t' -k1,1) | cut -f3- | sort -u > summaries_pubtator_entrez.txt
+
