@@ -1,0 +1,25 @@
+activator	1
+agonist	1
+agonist,allosteric modulator	1
+agonist,antagonist	0
+allosteric modulator	0
+antagonist	-1
+antagonist,activator	0
+antagonist,agonist	0
+antagonist,allosteric modulator	-1
+antagonist,inhibitor	-1
+antibody	-1
+antisense oligonucleotide	-1
+blocker	-1
+blocker,activator	0
+blocker,inhibitor	-1
+inducer	1
+inhibitor	-1
+inhibitory allosteric modulator	-1
+inverse agonist	-1
+modulator	0
+negative modulator	-1
+partial agonist	0
+positive modulator	1
+suppressor	-1
+vaccine	0
