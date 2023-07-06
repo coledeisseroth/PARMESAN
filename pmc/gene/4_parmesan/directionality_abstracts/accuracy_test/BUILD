@@ -1,8 +1,11 @@
 cat ../consensus_directionality.txt | awk 'BEGIN {FS = "\t"} {print $1 "_" $2 "\t" $3}' | sort -k1,1 | join -t$'\t' - <(cat ../../../../../no_text_mining/reactome_entrez.txt | awk 'BEGIN {FS = "\t"} {print $1 "_" $2 "\t" $3}' | sort -k1,1) | sed 's/_/\t/g' > reactome_comparison.txt
 
-for i in 0 $(seq 100); do cat reactome_comparison.txt | awk 'BEGIN {FS = "\t"; p = 0; n = 0} sqrt($3 ^ 2) > '$i' {if($3 * $4 > 0) {p += 1} else if($3 * $4 < 0) {n += 1}} END {print '$i' "\t" p / (p + n) "\t" p "\t" n}'; done > reactome_scoretable.txt
+for i in 0 $(seq 300); do cat reactome_comparison.txt | awk 'BEGIN {FS = "\t"; p = 0; n = 0} sqrt($3 ^ 2) > '$i' {if($3 * $4 > 0) {p += 1} else if($3 * $4 < 0) {n += 1}} END {print '$i' "\t" p / (p + n) "\t" p "\t" n}'; done > reactome_scoretable.txt
 
-for i in 0 $(seq 100); do cat ../consensus_directionality.txt | awk 'BEGIN {FS = "\t"} sqrt($3 ^ 2) > '$i | wc -l | awk '{print "'$i'\t" $1}'; done > score_to_count.txt
+for i in 0 $(seq 300); do cat ../consensus_directionality.txt | awk 'BEGIN {FS = "\t"} sqrt($3 ^ 2) > '$i | wc -l | awk '{print "'$i'\t" $1}'; done > score_to_count.txt
+
+for i in $(cat reactome_scoretable.txt | cut -f1); do cat reactome_scoretable.txt | awk '$1 <= '$i | cut -f2 | sort -gr | head -1 | awk '{print "'$i'\t" $0}'; done | sort -k1,1 | join -t$'\t' - <(cat score_to_count.txt | sort -k1,1) | cut -f2- | sort -k2,2gr | sort -k1,1gr -u > accuracy_distribution.txt
+
 
 #cat ../ortholog_mapping.txt | awk 'BEGIN {FS = "\t"} {if($5 == ".") {cmod = $1} else {cmod = $5} if($8 == "."){ctart = $2} else{ctarg = $8} print cmod "_" ctarg "\t" $1 "_" $2 "\t" $0}' | sort -k2,2 | join -t$'\t' -1 2 -2 1 - <()
 

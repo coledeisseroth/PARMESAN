@@ -4,6 +4,9 @@ for i in 0 $(seq 100); do cat dgidb_comparison.txt | awk 'BEGIN {FS = "\t"; p = 
 
 for i in 0 $(seq 100); do cat ../consensus_directionality.txt | awk 'BEGIN {FS = "\t"} sqrt($3 ^ 2) > '$i | wc -l | awk '{print "'$i'\t" $1}'; done > score_to_count.txt
 
+for i in $(cat dgidb_scoretable.txt | cut -f1); do cat dgidb_scoretable.txt | awk '$1 <= '$i | cut -f2 | sort -gr | head -1 | awk '{print "'$i'\t" $0}'; done | sort -k1,1 | join -t$'\t' - <(cat score_to_count.txt | sort -k1,1) | cut -f2- | sort -k2,2gr | sort -k1,1gr -u > accuracy_distribution.txt
+
+
 #cat ../ortholog_mapping.txt | awk 'BEGIN {FS = "\t"} {if($5 == ".") {cmod = $1} else {cmod = $5} if($8 == "."){ctart = $2} else{ctarg = $8} print cmod "_" ctarg "\t" $1 "_" $2 "\t" $0}' | sort -k2,2 | join -t$'\t' -1 2 -2 1 - <()
 
 get_seeded_random()

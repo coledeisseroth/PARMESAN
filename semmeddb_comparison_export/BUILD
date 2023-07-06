@@ -18,4 +18,20 @@ cp ../pmc/gene/4_parmesan/directionality_abstracts/accuracy_test/power_samplesiz
 
 cp -r ../pmc/drug/6_hypotheses_with_pubmed/timecapsule/pergene drug_timecapsule_hypotheses
 
+mkdir minscore_to_no_genes
+cp ../abstracts/drugs/5_hypotheses/no_dgidb/minscore_to_no_genes.txt minscore_to_no_genes/pubmed_drug.txt
+cp ../pmc/drug/5_hypotheses/no_dgidb/minscore_to_no_genes.txt minscore_to_no_genes/pmc_drug.txt
+cp ../pmc/drug/6_hypotheses_with_pubmed/no_dgidb/minscore_to_no_genes.txt minscore_to_no_genes/pmc_pubmed_drug.txt
+cp ../abstracts/genes/5_hypotheses/hypotheses/minscore_to_no_genes.txt minscore_to_no_genes/pubmed_gene.txt
+cp ../pmc/gene/5_hypotheses/hypotheses/minscore_to_no_genes.txt minscore_to_no_genes/pmc_gene.txt
+cp ../pmc/gene/6_hypotheses_with_pubmed/hypotheses/minscore_to_no_genes.txt minscore_to_no_genes/pmc_pubmed_gene.txt
+
+mkdir raw_comparison
+cp ../abstracts/drugs/5_hypotheses/no_dgidb/raw_dgidb_comparison.txt raw_comparison/pubmed_drug.txt
+cp ../pmc/drug/5_hypotheses/no_dgidb/raw_dgidb_comparison.txt raw_comparison/pmc_drug.txt
+cp ../pmc/drug/6_hypotheses_with_pubmed/no_dgidb/raw_dgidb_comparison.txt raw_comparison/pmc_pubmed_drug.txt
+cp ../abstracts/genes/5_hypotheses/hypotheses/raw_reactome_comparison.txt raw_comparison/pubmed_gene.txt
+cp ../pmc/gene/5_hypotheses/hypotheses/raw_reactome_comparison.txt raw_comparison/pmc_gene.txt
+cp ../pmc/gene/6_hypotheses_with_pubmed/hypotheses/raw_reactome_comparison.txt raw_comparison/pmc_pubmed_gene.txt
+
 

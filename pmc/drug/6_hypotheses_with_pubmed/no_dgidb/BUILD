@@ -16,12 +16,17 @@ for i in $(seq 0 500); do python3 ../../../../src/roc_curve.py <(cat raw_dgidb_c
 for i in $(cat dgidb_raw_scoretable.txt | cut -f1); do cat roc.txt | awk '$1 <= '$i | cut -f2 | sort -gr | head -1 | awk '{print "'$i'\t" $0}'; done | sort -k1,1 | join -t$'\t' - <(cat score_to_count.txt | sort -k1,1) | cut -f2- | sort -k2,2gr | sort -k1,1gr -u > roc_distribution.txt
 
 
-for gene in $(ls pergene); do cat pergene/$gene | cut -f3 | awk 'BEGIN {max=0} {$1 = sqrt($1 ^ 2); if($1 > max){max = $1}} END {print max}'; done | sort -gr | awk 'BEGIN {t = 0} {t += 1; print $1 "\t" t}' | sort -k2,2gr | sort -k1,1g -u > minscore_to_no_genes.txt
+for gene in $(ls pergene); do cat pergene/$gene | cut -f3 | awk 'BEGIN {max=0} {$1 = sqrt($1 ^ 2); if($1 > max){max = $1}} END {if(max > 0){print max}}'; done | sort -gr | awk 'BEGIN {t = 0} {t += 1; print $1 "\t" t}' | sort -k2,2gr | sort -k1,1g -u > minscore_to_no_genes.txt
 
-dgidb_size=$(cat ../../../../ground_truth/dgidb/mod_to_entrez.txt | wc -l); cat raw_dgidb_comparison.txt | awk 'BEGIN {FS = "\t"} {prod = $2 * $3; print sqrt($2 ^ 2) "\t" prod / sqrt(prod ^ 2)}' | sort -k1,1g | awk 'BEGIN {FS = "\t"; tp = 0; tn = '$dgidb_size'; fp = 0; fn = '$dgidb_size'; cur = ""; print "0\t0"} {if(cur != "" && cur != $1){tpr = tp / (tp + fn); fpr = fp / (fp + tn); print fpr "\t" tpr} cur = $1; if($2 > 0){tp += 1; fn -= 1} else if($2 < 0){fp += 1; tn -= 1}} END {tpr = tp / (tp + fn); fpr = fp / (fp + tn); print fpr "\t" tpr; print "1\t1"}' | sort -k2,2gr | sort -k1,1g -u | sort -k2,2 -u | sort -k1,1g > dgidb_roc.txt
 
-#Get AUROC
-bash ../../../../src/auroc.sh dgidb_roc.txt
+for file in $(ls pergene); do cat pergene/$file | cut -f3 | awk '{print sqrt($1 ^ 2)}' | sort | uniq -c | awk '{print $2 "\t" $1}'; done | sort -k1,1gr | awk 'BEGIN {n = ""; t = 0} {if(n != "" && n != $1) {print n "\t" t} n = $1; t += $2} END {print n "\t" t}' > score_to_count_exact.txt
+
+totalgenes=$(ls pergene | wc -l); for entry in $(cat minscore_to_no_genes.txt | sed 's/\t/,/g'); do minscore=$(echo $entry | cut -d, -f1); recall=$(echo $entry | cut -d, -f2 | awk '{print $1 / '$totalgenes'}'); precision=$(cat raw_dgidb_comparison.txt | awk 'BEGIN {FS = "\t"; p = 0; n = 0} sqrt($2 ^ 2) >= '$minscore' {if($2 * $3 > 0){p += 1} else if($2 * $3 < 0){n += 1}} END {print p / (p + n)}'); echo $precision$'\t'$recall; done > precision_recall_raw.txt
+cat precision_recall_raw.txt | sort -k2,2gr | awk 'BEGIN {FS = "\t"; pprev = ""; rprev = ""} pprev == "" || ($1 > pprev || $2 > rprev) {print; pprev = $1; rprev = $2}' > precision_recall_curve.txt
+
+#Get AUC
+bash ../../../../src/auc.sh <(echo $'0\t1'; cat precision_recall_curve.txt; echo $'1\t0')
+
 
 
 cd udn
