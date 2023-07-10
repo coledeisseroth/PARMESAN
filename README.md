@@ -48,3 +48,4 @@ The format is:
 Score threshold Accuracy        No. correct predictions in the ground-truth comparison  No. incorrect predictions in the ground-truth comparison
 
 
+Copyright 2023, Baylor College of Medicine. All rights reserved.
