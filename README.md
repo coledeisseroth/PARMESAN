@@ -27,7 +27,7 @@ The accuracy values for extractions at each directionality score threshold will 
 
 The format is:
 
-Score threshold[tab]Accuracy[tab]No. correct extractions in the ground-truth comparison[tab]No. incorrect extractions in the ground-truth comparison
+Score threshold[tab]Accuracy[tab]No. relationships consistent with the manually curated database[tab]No. relationships contradicted by the manually curated database
 
 <h3>Predicted relationships</h3>
 Gene modifier predictions will be here:
@@ -45,7 +45,7 @@ The accuracy values for predictions at each directionality score threshold will 
 
 The format is:
 
-Score threshold[tab]Accuracy[tab]No. correct predictions in the ground-truth comparison[tab]No. incorrect predictions in the ground-truth comparison
+Score threshold[tab]Accuracy[tab]No. relationships consistent with the manually curated database[tab]No. relationships contradicted by the manually curated database
 
 <h2>Drug modifiers</h2>
 
@@ -63,7 +63,7 @@ The accuracy values for extractions at each directionality score threshold will 
 <code>pmc/drug/4_parmesan/directionality_abstracts/accuracy_test/dgidb_scoretable.txt</code>
 The format is:
 
-Score threshold[tab]Accuracy[tab]No. correct extractions in the ground-truth comparison[tab]No. incorrect extractions in the ground-truth comparison
+Score threshold[tab]Accuracy[tab]No. relationships consistent with the manually curated database[tab]No. relationships contradicted by the manually curated database
 
 <h3>Predicted relationships</h3>
 Drug modifier predictions will be here:
@@ -81,7 +81,7 @@ The accuracy values for predictions at each directionality score threshold will 
 
 The format is:
 
-Score threshold[tab]Accuracy[tab]No. correct predictions in the ground-truth comparison[tab]No. incorrect predictions in the ground-truth comparison
+Score threshold[tab]Accuracy[tab]No. relationships consistent with the manually curated database[tab]No. relationships contradicted by the manually curated database
 
 
 <h1>Citation</h1>
