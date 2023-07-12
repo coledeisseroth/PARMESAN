@@ -1,58 +1,80 @@
-#PARsing ModifiErS via Article aNnotations (PARMESAN)
+<h1>PARsing ModifiErS via Article aNnotations (PARMESAN)</h1>
 
 PARMESAN is an open-source computational tool that automatically extracts gene-gene and drug-gene relationships from PubMed and PubMed Central. Upon extracting these relationships, it predicts unknown regulatory relationships.
 
 Each extracted and predicted relationship is given a numeric score based on the amount of supporting and opposing evidence. To assign meaning to these scores, we compare the relationships to manually curated relationships in the Drug-Gene Interaction Database (DGIdb) and Reactome's functional interaction list. This gives us a score table, telling us the accuracy of predictions scoring above a given threshold.
 
-#Setup
+<h1>Setup</h1>
 To generate all of the relevant tables, cd into PARMESAN and run:
-bash setup.sh
 
-All genes are indexed by Entrez ID, and all drugs are indexed by PubChem ID.
+<code>bash setup.sh</code>
 
+All genes are indexed by Entrez ID, and all drugs are indexed by PubChem ID. All tables listed below are tab-separated.
+
+<h2>Gene modifiers</h2>
+<h3>Extracted known relationships</h3>
 Upon completion, gene modifier extractions will be here:
-pmc/gene/4_parmesan/directionality_abstracts/consensus_directionality.txt
+
+<code>pmc/gene/4_parmesan/directionality_abstracts/consensus_directionality.txt</code>
+
 The format is:
-Modifier	Target	Directionality score
+
+Modifier[tab]Target[tab]Directionality_score
 
 The accuracy values for extractions at each directionality score threshold will be here:
-pmc/gene/4_parmesan/directionality_abstracts/accuracy_test/reactome_scoretable.txt
-The format is:
-Score threshold	Accuracy	No. correct extractions in the ground-truth comparison	No. incorrect extractions in the ground-truth comparison
 
+<code>pmc/gene/4_parmesan/directionality_abstracts/accuracy_test/reactome_scoretable.txt</code>
+The format is:
+
+Score threshold[tab]Accuracy[tab]No. correct extractions in the ground-truth comparison[tab]No. incorrect extractions in the ground-truth comparison
+
+<h3>Predicted relationships</h3>
 Gene modifier predictions will be here:
-pmc/gene/6_hypotheses_with_pubmed/hypotheses/pergene/
+
+<code>pmc/gene/6_hypotheses_with_pubmed/hypotheses/pergene/</code>
 For each target gene, there will be a file whose name is the entrez ID of that gene. For example, the predicted modifiers of MeCP2 will be in the file titled "4204".
 The format for each table is:
-Modifier        Target  Directionality score
+
+Modifier[tab]Target[tab]Directionality score
 
 The accuracy values for predictions at each directionality score threshold will be here:
-pmc/gene/6_hypotheses_with_pubmed/hypotheses/reactome_scoretable.txt
+
+<code>pmc/gene/6_hypotheses_with_pubmed/hypotheses/reactome_scoretable.txt</code>
 The format is:
-Score threshold Accuracy        No. correct predictions in the ground-truth comparison  No. incorrect predictions in the ground-truth comparison
 
+Score threshold[tab]Accuracy[tab]No. correct predictions in the ground-truth comparison[tab]No. incorrect predictions in the ground-truth comparison
 
+<h2>Drug modifiers</h2>
+
+<h3>Extracted known relationships</h3>
 Drug modifier extractions will be here:
-pmc/gene/4_parmesan/directionality_abstracts/consensus_directionality.txt
+
+<code>pmc/gene/4_parmesan/directionality_abstracts/consensus_directionality.txt</code>
 The format is:
-Modifier        Target  Directionality score
+
+Modifier[tab]Target[tab]Directionality score
 
 The accuracy values for extractions at each directionality score threshold will be here:
-pmc/drug/4_parmesan/directionality_abstracts/accuracy_test/dgidb_scoretable.txt
+
+<code>pmc/drug/4_parmesan/directionality_abstracts/accuracy_test/dgidb_scoretable.txt</code>
 The format is:
-Score threshold Accuracy        No. correct extractions in the ground-truth comparison  No. incorrect extractions in the ground-truth comparison
 
+Score threshold[tab]Accuracy[tab]No. correct extractions in the ground-truth comparison[tab]No. incorrect extractions in the ground-truth comparison
 
+<h3>Predicted relationships</h3>
 Drug modifier predictions will be here:
-pmc/drug/6_hypotheses_with_pubmed/no_dgidb/pergene/
+
+<code>pmc/drug/6_hypotheses_with_pubmed/no_dgidb/pergene/</code>
 For each target gene, there will be a file whose name is the entrez ID of that gene. For example, the predicted modifiers of MeCP2 will be in the file titled "4204".
 The format for each table is:
-Modifier        Target  Directionality score
+
+Modifier[tab]Target[tab]Directionality score
 
 The accuracy values for predictions at each directionality score threshold will be here:
-pmc/gene/6_hypotheses_with_pubmed/no_dgidb/dgidb_scoretable.txt
+<code>pmc/gene/6_hypotheses_with_pubmed/no_dgidb/dgidb_scoretable.txt</code>
 The format is:
-Score threshold Accuracy        No. correct predictions in the ground-truth comparison  No. incorrect predictions in the ground-truth comparison
+
+Score threshold[tab]Accuracy[tab]No. correct predictions in the ground-truth comparison[tab]No. incorrect predictions in the ground-truth comparison
 
 
 Copyright 2023, Baylor College of Medicine. All rights reserved.
