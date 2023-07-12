@@ -24,6 +24,7 @@ Modifier[tab]Target[tab]Directionality_score
 The accuracy values for extractions at each directionality score threshold will be here:
 
 <code>pmc/gene/4_parmesan/directionality_abstracts/accuracy_test/reactome_scoretable.txt</code>
+
 The format is:
 
 Score threshold[tab]Accuracy[tab]No. correct extractions in the ground-truth comparison[tab]No. incorrect extractions in the ground-truth comparison
@@ -32,6 +33,7 @@ Score threshold[tab]Accuracy[tab]No. correct extractions in the ground-truth com
 Gene modifier predictions will be here:
 
 <code>pmc/gene/6_hypotheses_with_pubmed/hypotheses/pergene/</code>
+
 For each target gene, there will be a file whose name is the entrez ID of that gene. For example, the predicted modifiers of MeCP2 will be in the file titled "4204".
 The format for each table is:
 
@@ -40,6 +42,7 @@ Modifier[tab]Target[tab]Directionality score
 The accuracy values for predictions at each directionality score threshold will be here:
 
 <code>pmc/gene/6_hypotheses_with_pubmed/hypotheses/reactome_scoretable.txt</code>
+
 The format is:
 
 Score threshold[tab]Accuracy[tab]No. correct predictions in the ground-truth comparison[tab]No. incorrect predictions in the ground-truth comparison
@@ -50,6 +53,7 @@ Score threshold[tab]Accuracy[tab]No. correct predictions in the ground-truth com
 Drug modifier extractions will be here:
 
 <code>pmc/gene/4_parmesan/directionality_abstracts/consensus_directionality.txt</code>
+
 The format is:
 
 Modifier[tab]Target[tab]Directionality score
@@ -65,13 +69,16 @@ Score threshold[tab]Accuracy[tab]No. correct extractions in the ground-truth com
 Drug modifier predictions will be here:
 
 <code>pmc/drug/6_hypotheses_with_pubmed/no_dgidb/pergene/</code>
+
 For each target gene, there will be a file whose name is the entrez ID of that gene. For example, the predicted modifiers of MeCP2 will be in the file titled "4204".
 The format for each table is:
 
 Modifier[tab]Target[tab]Directionality score
 
 The accuracy values for predictions at each directionality score threshold will be here:
+
 <code>pmc/gene/6_hypotheses_with_pubmed/no_dgidb/dgidb_scoretable.txt</code>
+
 The format is:
 
 Score threshold[tab]Accuracy[tab]No. correct predictions in the ground-truth comparison[tab]No. incorrect predictions in the ground-truth comparison
