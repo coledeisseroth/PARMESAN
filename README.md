@@ -77,4 +77,9 @@ The format is:
 Score threshold[tab]Accuracy[tab]No. correct predictions in the ground-truth comparison[tab]No. incorrect predictions in the ground-truth comparison
 
 
+<h1>Citation</h1>
+To cite PARMESAN, you can use the preprint below:
+
+https://www.biorxiv.org/content/10.1101/2022.09.08.506253v1
+
 Copyright 2023, Baylor College of Medicine. All rights reserved.
