@@ -1,4 +1,11 @@
-To generate all of the data, cd into PARMESAN and run:
+#PARsing ModifiErS via Article aNnotations (PARMESAN)
+
+PARMESAN is an open-source computational tool that automatically extracts gene-gene and drug-gene relationships from PubMed and PubMed Central. Upon extracting these relationships, it predicts unknown regulatory relationships.
+
+Each extracted and predicted relationship is given a numeric score based on the amount of supporting and opposing evidence. To assign meaning to these scores, we compare the relationships to manually curated relationships in the Drug-Gene Interaction Database (DGIdb) and Reactome's functional interaction list. This gives us a score table, telling us the accuracy of predictions scoring above a given threshold.
+
+#Setup
+To generate all of the relevant tables, cd into PARMESAN and run:
 bash setup.sh
 
 All genes are indexed by Entrez ID, and all drugs are indexed by PubChem ID.
