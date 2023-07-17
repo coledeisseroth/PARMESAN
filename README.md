@@ -4,6 +4,9 @@ PARMESAN is an open-source computational tool that automatically extracts gene-g
 
 Each extracted and predicted relationship is given a numeric score based on the amount of supporting and opposing evidence. To assign meaning to these scores, we compare the relationships to manually curated relationships in the Drug-Gene Interaction Database (DGIdb) and Reactome's functional interaction list. This gives us a score table, telling us the accuracy of predictions scoring above a given threshold.
 
+<h2>Disclaimer</h2>
+PARMESAN is designed to help guide molecular experiments, but NOT medical deicision-making. PARMESAN, its extractions, and its predictions should never be used to make medical decisions.
+
 <h1>Setup</h1>
 To generate all of the relevant tables, cd into PARMESAN and run:
 
