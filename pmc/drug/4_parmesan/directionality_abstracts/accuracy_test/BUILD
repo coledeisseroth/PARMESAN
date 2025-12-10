@@ -2,6 +2,9 @@ cat ../consensus_directionality.txt | awk 'BEGIN {FS = "\t"} {print $1 "_" $2 "\
 
 for i in 0 $(seq 100); do cat dgidb_comparison.txt | awk 'BEGIN {FS = "\t"; p = 0; n = 0} sqrt($3 ^ 2) > '$i' {if($3 * $4 > 0) {p += 1} else if($3 * $4 < 0) {n += 1}} END {print '$i' "\t" p / (p + n) "\t" p "\t" n}'; done > dgidb_scoretable.txt
 
+cat dgidb_comparison.txt | awk 'BEGIN {FS = "\t"} {print sqrt($3 ^ 2) "\t" $3 * $4 / sqrt(($3 * $4) ^ 2)}' | sort -k1,1gr | awk 'BEGIN {FS = "\t"; cur = ""; p = 0; n = 0} $2 != 0 {if(cur != "" && cur != $1){print cur "\t" p / (p+n)} cur = $1; if($2 > 0){p++} else{n++}} END {print cur "\t" p / (p+n)}' > exact_scoretable.txt
+
+
 for i in 0 $(seq 100); do cat ../consensus_directionality.txt | awk 'BEGIN {FS = "\t"} sqrt($3 ^ 2) > '$i | wc -l | awk '{print "'$i'\t" $1}'; done > score_to_count.txt
 
 for i in $(cat dgidb_scoretable.txt | cut -f1); do cat dgidb_scoretable.txt | awk '$1 <= '$i | cut -f2 | sort -gr | head -1 | awk '{print "'$i'\t" $0}'; done | sort -k1,1 | join -t$'\t' - <(cat score_to_count.txt | sort -k1,1) | cut -f2- | sort -k2,2gr | sort -k1,1gr -u > accuracy_distribution.txt

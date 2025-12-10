@@ -1,6 +1,7 @@
 cat ../pubtator/summaries_pubtator_pubchem_entrez.txt | grep -v $'\t\t' | awk '$(NF-1) != $NF' | sort -u > summaries_with_entrez.txt
 python3 ../../../../src/find_substring_genes.py summaries_with_entrez.txt | sort -u > substring_gene_summaries.txt
 cat summaries_with_entrez.txt | sort -u | comm -23 - substring_gene_summaries.txt | awk 'BEGIN {FS = "\t"} $8 != "" && $9 != ""' > tmp; mv tmp summaries_with_entrez.txt
+cat summaries_with_entrez.txt | cut -f1 | sort -u | comm -23 - <(cat ../../../../ground_truth/pubmed/retracted_pmids.txt | sort -u) | sort -u | join -t$'\t' - <(cat summaries_with_entrez.txt | sort -k1,1) > tmp; mv tmp summaries_with_entrez.txt
 
 
 cat summaries_with_entrez.txt | cut -f1,3,6,8,9 | sort -t$'\t' -k2,2 | join -t$'\t' -1 2 -2 1 - <(cat ../../../../src/vocabulary.py | grep 'positive\|negative' | grep predicate | cut -d'"' -f2,6 | sed 's/"/\t/g' | sed 's/positive/1/g' | sed 's/negative/-1/g' | sort -k1,1) | cut -f2- | sort -k2,2 | join -t$'\t' -1 2 -2 1 - <(cat ../../../../src/vocabulary.py | grep '"action"' | grep 'negative' | cut -d'"' -f2 | sort -u | awk 'BEGIN{print ".\t1"} {print $1 "\t-1"}' | sort -k1,1) | cut -f2- | awk '{print $1 "\t" $2 "\t" $3 "\t" $4 * $5}' | sort -u > pmid_mod_targentrez_direction.txt

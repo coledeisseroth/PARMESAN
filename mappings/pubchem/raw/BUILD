@@ -5,3 +5,5 @@ wget https://ftp.ncbi.nlm.nih.gov/pubchem/RDF/reference/pc_reference2meshheading
 wget https://ftp.ncbi.nlm.nih.gov/pubchem/Substance/CURRENT-Full/SDF/Substance_000000001_000500000.sdf.gz
 wget https://ftp.ncbi.nlm.nih.gov/pubchem/Substance/CURRENT-Full/ASN/Substance_000000001_000500000.asn.gz
 
+wget https://ftp.ncbi.nlm.nih.gov/pubchem/Substance/Extras/SID-Synonym.gz
+

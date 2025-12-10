@@ -13,6 +13,7 @@ python3 ../../../src/find_substring_genes.py summaries_with_entrez.txt | sort -u
 
 cat summaries_with_entrez.txt | sort -u | comm -23 - substring_gene_summaries.txt | awk 'BEGIN {FS = "\t"} $8 != "" && $9 != ""' > tmp; mv tmp summaries_with_entrez.txt
 
+cat summaries_with_entrez.txt | cut -f1 | sort -u | comm -23 - <(cat ../../../ground_truth/pubmed/retracted_pmids.txt | sort -u) | sort -u | join -t$'\t' - <(cat summaries_with_entrez.txt | sort -k1,1) > tmp; mv tmp summaries_with_entrez.txt
 
 cd directionality
 bash BUILD

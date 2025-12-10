@@ -11,8 +11,7 @@ for prefix in $(ls ../articles/ | cut -d_ -f1-2 | sort -u); do
 mkdir $prefix
 cd $prefix
 for zipfile in $(ls ../../articles/${prefix}*.tar.gz); do
-while [ $(screen -ls | grep 'PMC_UNZIP' | wc -l) -gt 40 ]; do   sleep 1; done
-screen -m -d -S "PMC_UNZIP" bash -c "tar -xvzf "$zipfile
+tar -xvzf $zipfile
 done
 cd ..
 done

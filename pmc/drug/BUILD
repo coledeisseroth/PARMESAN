@@ -7,7 +7,7 @@ python3 ../../src/cooccurrences.py <(cat ../gene/0_pmc/$dir/$file ../gene/annota
 done
 done
 done
-while [ $(jobs | wc -l) -gt 0 ]; do   sleep 1; done
+while [ $(jobs | wc -l) -gt 0 ]; do jobs; sleep 1; done
 
 mkdir 3_subject_object
 for file in $(ls ../gene/annotations_only/split); do

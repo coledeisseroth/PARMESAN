@@ -7,8 +7,8 @@ cd split
 split -l $(cat ../../entrez/human_genes.txt | sort -u | wc -l | awk '{print int($1 / 19)}') ../../entrez/human_genes.txt
 cd ..
 mkdir split/output
-for file in $(ls split); do
-for gene in $(cat split/$file); do curl https://www.flyrnai.org/tools/diopt/web/diopt_api/v9/get_orthologs_from_entrez/9606/$gene/all/none | awk '{print "'$gene'\t" $0}'; done > split/output/$file &
+for file in $(ls split | grep -v output); do
+for gene in $(cat split/$file); do curl https://www.flyrnai.org/tools/diopt/web/diopt_api/v9/get_orthologs_from_entrez/9606/$gene/all/none | awk '{print "'$gene'\t" $0}'; sleep 1; done > split/output/$file
 done
 
 cat split/output/* > raw/orthologs.txt

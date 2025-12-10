@@ -6,12 +6,15 @@ for distdir in $(ls ../../ground_truth/pmc/unzipped/); do
 for zipdir in $(ls ../../ground_truth/pmc/unzipped/$distdir); do
 mkdir 0_pmc/${zipdir}_${distdir}
 for pmcid in $(ls ../../ground_truth/pmc/unzipped/$distdir/$zipdir | cut -d. -f1); do
-while [ $(jobs | wc -l) -gt 80 ]; do jobs; sleep 0.1; done
+while [ $(jobs | grep 'Running\|Done' | wc -l) -gt 40 ]; do jobs; sleep 0.1; done
 (echo -n $(cat ../../ground_truth/pmc/pmc_to_pmid.txt | awk '$1 == "'$pmcid'"' | head -1 | cut -f2); echo -n $'\t.\t'; cat ../../ground_truth/pmc/unzipped/$distdir/$zipdir/$pmcid.txt | sed 's/\t/ . /g' | paste -sd' . ') > 0_pmc/${zipdir}_${distdir}/${pmcid}.txt &
 done
 done
 done
-while [ $(jobs | wc -l) -gt 0 ]; do jobs; sleep 1; done
+while [ $(jobs | grep Running | wc -l) -gt 0 ]; do jobs; sleep 1; done
+
+for dir in $(ls 0_pmc); do for file in $(ls 0_pmc/$dir); do wc -l 0_pmc/$dir/$file; done; done
+for dir in $(ls 0_pmc); do for file in $(ls 0_pmc/$dir); do wc -l 0_pmc/$dir/$file; done; done | awk '$1 < 1 {print $2}' > missed_files.txt
 
 while [ $(ls ../../ground_truth/pubtator/ | grep PUBTATOR_COMPLETE | wc -l) -lt 1 ]; do sleep 1; done
 

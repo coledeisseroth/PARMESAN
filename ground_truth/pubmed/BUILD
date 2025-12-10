@@ -9,5 +9,8 @@ cd dates
 bash BUILD
 cd ..
 
+for file in $(ls baseline/*); do zcat $file | grep -v "          <PMID" | grep -Ff <(echo "</PMID>"; echo '<PublicationType UI="D016441">') | sed 's/ //g' | paste -s | sed 's/<PMIDVersion="1">/\n/g' | grep '<PublicationTypeUI="D016441">' | cut -d'<' -f1; done > retracted_pmids.txt
+
+
 touch PUBMED_COMPLETE
 

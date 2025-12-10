@@ -1,11 +1,9 @@
-mkdir completion
 mkdir pergene
 for gene in $(cat ../../4_parmesan/directionality/consensus_directionality.txt | cut -f2 | sort -u); do
-while [ $(jobs | wc -l) -gt 40 ]; do sleep 1; done
-(cat ../../4_parmesan/directionality/consensus_directionality.txt | awk '$2 == '$gene | sort -k1,1 | join -t$'\t' -1 2 -2 1 <(cat ../../4_parmesan/directionality/consensus_directionality.txt | sort -k2,2) - | awk '{print $2 "_" $4 "\t" $1 "\t" ($3 * $5) / (sqrt($3 * $3) + sqrt($5 * $5))}' | sort -u | sort -k1,1 | awk 'BEGIN {cur=""; p=0; n=0} {if($1 != cur){if(cur != "" && p + n > 0){print cur "\t" (p - n) * sqrt((p - n) ** 2) / (p + n)} cur = $1; p = 0; n = 0} if($3 > 0){p += $3} else if($3 < 0){n -= $3}} END {if(p + n > 0){print cur "\t" (p - n) * sqrt((p - n) ** 2) / (p + n)}}' | awk '$2 != 0' | sed 's/_/\t/g' > pergene/$gene; touch completion/$gene) &
+while [ $(jobs | grep 'Running\|Done' | wc -l) -gt 40 ]; do jobs; sleep 1; done
+cat ../../4_parmesan/directionality/consensus_directionality.txt | awk '$2 == '$gene | sort -k1,1 | join -t$'\t' -1 2 -2 1 <(cat ../../4_parmesan/directionality/consensus_directionality.txt | sort -k2,2) - | awk '{print $2 "_" $4 "\t" $1 "\t" ($3 * $5) / (sqrt($3 * $3) + sqrt($5 * $5))}' | sort -u | sort -k1,1 | awk 'BEGIN {cur=""; p=0; n=0} {if($1 != cur){if(cur != "" && p + n > 0){print cur "\t" (p - n) * sqrt((p - n) ** 2) / (p + n)} cur = $1; p = 0; n = 0} if($3 > 0){p += $3} else if($3 < 0){n -= $3}} END {if(p + n > 0){print cur "\t" (p - n) * sqrt((p - n) ** 2) / (p + n)}}' | awk '$2 != 0' | sed 's/_/\t/g' > pergene/$gene &
 done
-
-while [ $(ls completion | wc -l) -lt $(cat ../../4_parmesan/directionality/consensus_directionality.txt | cut -f2 | sort -u | wc -l) ]; do sleep 1; done
+while [ $(jobs | grep 'Running\|Done' | wc -l) -gt 0 ]; do jobs; sleep 1; done
 
 while [ $(ls ../../../../no_text_mining/ | grep NO_TEXT_MINING_COMPLETE | wc -l) -lt 1 ]; do sleep 1; done
 
