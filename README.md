@@ -88,8 +88,7 @@ Score threshold[tab]Accuracy[tab]No. relationships consistent with the manually 
 
 
 <h1>Citation</h1>
-To cite PARMESAN, you can use the preprint below:
-
-https://www.biorxiv.org/content/10.1101/2022.09.08.506253v1
+To cite PARMESAN, you can use the article below:
+https://doi.org/10.1016/j.ajhg.2023.08.018
 
 Copyright 2023, Baylor College of Medicine. All rights reserved.
